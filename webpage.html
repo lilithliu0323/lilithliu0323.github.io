@@ -5,8 +5,32 @@
     <title>深度链接测试</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#667eea">
+
+    <!-- Adjust Web SDK -->
+    <script>
+        (function(w, d, s, u, n, t) {
+            w.Adjust = n = n || {};
+            n.q = n.q || [];
+            n.trackEvent = function() {
+                n.q.push(['trackEvent', arguments]);
+            };
+            t = d.createElement(s);
+            t.async = 1;
+            t.src = u;
+            d.getElementsByTagName(s)[0].parentNode.insertBefore(t, null);
+        })(window, document, 'script', 'https://cdn.adjust.com/adjust-latest.min.js');
+
+        Adjust.init({
+            appToken: 'xwgmhbq5otfk',
+            environment: 'sandbox' // 测试环境
+        });
+    </script>
+
     <style>
-        /* 通用样式 */
+        /* ===== 原样式 ===== */
         html, body {
             margin: 0;
             padding: 0;
@@ -16,7 +40,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-y: auto; /* 页面可滚动，避免键盘遮挡 */
+            overflow-y: auto;
         }
 
         .container {
@@ -31,7 +55,6 @@
             flex-direction: column;
         }
 
-        /* Header */
         .header {
             display: flex;
             align-items: center;
@@ -49,17 +72,14 @@
             margin: 0;
             color: #333;
             font-size: 20px;
-            text-align: center;
         }
 
-        /* Notice */
         .notice {
             background: #f7f8fc;
             border-radius: 8px;
             padding: 12px 14px;
             font-size: 13px;
             color: #444;
-            line-height: 1.5;
             margin-bottom: 20px;
         }
 
@@ -86,14 +106,12 @@
         .dot { background: #667eea; }
         .dot-hollow { border: 2px solid #667eea; }
 
-        /* 输入框和按钮 */
         input {
             width: 100%;
             padding: 12px;
             font-size: 15px;
             border-radius: 6px;
             border: 1px solid #ccc;
-            box-sizing: border-box;
         }
 
         .add-btn {
@@ -108,7 +126,6 @@
             cursor: pointer;
         }
 
-        /* 链接列表 */
         ul {
             list-style: none;
             padding: 0;
@@ -125,7 +142,6 @@
 
         .link-row {
             display: flex;
-            align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
         }
@@ -134,7 +150,7 @@
             cursor: pointer;
             word-break: break-all;
             margin-right: 10px;
-            flex: 1 1 auto;
+            flex: 1;
         }
 
         .delete-btn {
@@ -145,22 +161,12 @@
             padding: 4px 8px;
             font-size: 12px;
             cursor: pointer;
-            margin-top: 4px;
         }
 
         .time-info {
             margin-top: 6px;
             font-size: 12px;
             color: #666;
-        }
-
-        /* 响应式调整 */
-        @media (min-width: 600px) {
-            h1 { font-size: 22px; }
-            input { font-size: 15px; padding: 12px; }
-            .add-btn { font-size: 16px; }
-            li { font-size: 14px; padding: 12px; }
-            .time-info { font-size: 12px; }
         }
     </style>
 </head>
@@ -177,31 +183,11 @@
 
     <div class="notice">
         <div class="notice-title">测试注意事项：</div>
-
-        <div class="notice-item">
-            <span class="dot"></span>
-            <span>请在移动设备浏览器中打开此网页，并输入需要测试的链接</span>
-        </div>
-
-        <div class="notice-item">
-            <span class="dot"></span>
-            <span>如测试延迟深度链接，请先：</span>
-        </div>
-
-        <div class="notice-item" style="margin-left:18px;">
-            <span class="dot-hollow"></span>
-            <span>卸载 App</span>
-        </div>
-
-        <div class="notice-item" style="margin-left:18px;">
-            <span class="dot-hollow"></span>
-            <span>测试控制台清除安装记录</span>
-        </div>
-
-        <div class="notice-item" style="margin-left:18px;">
-            <span class="dot-hollow"></span>
-            <span>点击链接安装 App</span>
-        </div>
+        <div class="notice-item"><span class="dot"></span><span>请在移动设备浏览器中打开此网页</span></div>
+        <div class="notice-item"><span class="dot"></span><span>如测试延迟深度链接，请先：</span></div>
+        <div class="notice-item" style="margin-left:18px;"><span class="dot-hollow"></span><span>卸载 App</span></div>
+        <div class="notice-item" style="margin-left:18px;"><span class="dot-hollow"></span><span>测试控制台清除安装记录</span></div>
+        <div class="notice-item" style="margin-left:18px;"><span class="dot-hollow"></span><span>点击链接安装 App</span></div>
     </div>
 
     <input id="urlInput" type="text" placeholder="请输入测试链接">
@@ -211,27 +197,27 @@
 </div>
 
 <script>
+    const STORAGE_KEY = 'deep_link_records';
+
     function formatTime(date) {
         return date.toLocaleString();
     }
 
-    function addLink() {
-        const url = document.getElementById("urlInput").value.trim();
-        if (!url) {
-            alert("请输入测试链接");
-            return;
-        }
+    function saveData(data) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
 
-        try {
-            new URL(url);
-        } catch {
-            alert("链接格式不正确");
-            return;
-        }
+    function loadData() {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    }
 
-        const createdTime = formatTime(new Date());
-        let lastClickTime = "未点击";
+    function renderList() {
+        const list = document.getElementById("linkList");
+        list.innerHTML = '';
+        loadData().forEach(createItem);
+    }
 
+    function createItem(item) {
         const li = document.createElement("li");
 
         const linkRow = document.createElement("div");
@@ -239,7 +225,7 @@
 
         const linkText = document.createElement("span");
         linkText.className = "link-text";
-        linkText.innerText = url;
+        linkText.innerText = item.url;
 
         const deleteBtn = document.createElement("button");
         deleteBtn.className = "delete-btn";
@@ -247,34 +233,57 @@
 
         const timeInfo = document.createElement("div");
         timeInfo.className = "time-info";
-        timeInfo.innerText = `创建时间：${createdTime} ｜ 最后点击：${lastClickTime}`;
 
-        linkText.onclick = function () {
-            lastClickTime = formatTime(new Date());
-            timeInfo.innerText = `创建时间：${createdTime} ｜ 最后点击：${lastClickTime}`;
-            window.open(url, "_blank");
+        function updateTime() {
+            timeInfo.innerText =
+                `创建时间：${item.created} ｜ 最后点击：${item.lastClick || '未点击'}`;
+        }
+
+        linkText.onclick = () => {
+            item.lastClick = formatTime(new Date());
+            Adjust.trackEvent({ eventToken: 'swbxy4' });
+            saveData(loadData());
+            updateTime();
+            window.open(item.url, "_blank");
         };
 
-        deleteBtn.onclick = function () {
-            li.remove();
+        deleteBtn.onclick = () => {
+            Adjust.trackEvent({ eventToken: '56lhs5' });
+            saveData(loadData().filter(i => i !== item));
+            renderList();
         };
 
+        updateTime();
         linkRow.appendChild(linkText);
         linkRow.appendChild(deleteBtn);
         li.appendChild(linkRow);
         li.appendChild(timeInfo);
-
         document.getElementById("linkList").appendChild(li);
-        document.getElementById("urlInput").value = "";
     }
 
-    // 输入框聚焦时滚动到可见，防止手机键盘遮挡
-    const urlInput = document.getElementById("urlInput");
-    urlInput.addEventListener("focus", () => {
-        setTimeout(() => {
-            urlInput.scrollIntoView({behavior: "smooth", block: "center"});
-        }, 300); // 给键盘弹出时间
-    });
+    function addLink() {
+        const url = document.getElementById("urlInput").value.trim();
+        if (!url) return;
+
+        Adjust.trackEvent({ eventToken: 'swbxy4' });
+
+        const data = loadData();
+        data.push({
+            url,
+            created: formatTime(new Date()),
+            lastClick: ''
+        });
+        saveData(data);
+        renderList();
+        document.getElementById("urlInput").value = '';
+    }
+
+    renderList();
+
+    // PWA Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js');
+    }
 </script>
 </body>
 </html>
