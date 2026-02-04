@@ -25,28 +25,40 @@
 
         Adjust.init({
             appToken: 'xwgmhbq5otfk',
-            environment: 'sandbox' // 测试环境
+            environment: 'sandbox'
         });
+
+        function trackAdjustEvent(token) {
+            if (window.Adjust && Adjust.trackEvent) {
+                Adjust.trackEvent({ eventToken: token });
+            } else {
+                console.warn('Adjust SDK not ready');
+            }
+        }
     </script>
 
     <style>
-        /* ===== 原样式 ===== */
+        /* ===== 修复后的全局布局 ===== */
         html, body {
             margin: 0;
             padding: 0;
             min-height: 100vh;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .page {
+            min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
-            overflow-y: auto;
+            padding: 16px;
+            box-sizing: border-box;
         }
 
         .container {
             background: #ffffff;
             padding: 20px;
-            width: 90%;
+            width: 100%;
             max-width: 520px;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
@@ -112,6 +124,7 @@
             font-size: 15px;
             border-radius: 6px;
             border: 1px solid #ccc;
+            box-sizing: border-box; /* ✅ 修复溢出 */
         }
 
         .add-btn {
@@ -172,6 +185,7 @@
 </head>
 
 <body>
+<div class="page">
 <div class="container">
 
     <div class="header">
@@ -194,6 +208,7 @@
     <button class="add-btn" onclick="addLink()">添加到列表</button>
 
     <ul id="linkList"></ul>
+</div>
 </div>
 
 <script>
@@ -241,14 +256,14 @@
 
         linkText.onclick = () => {
             item.lastClick = formatTime(new Date());
-            Adjust.trackEvent({ eventToken: 'swbxy4' });
+            trackAdjustEvent('swbxy4');
             saveData(loadData());
             updateTime();
             window.open(item.url, "_blank");
         };
 
         deleteBtn.onclick = () => {
-            Adjust.trackEvent({ eventToken: '56lhs5' });
+            trackAdjustEvent('56lhs5');
             saveData(loadData().filter(i => i !== item));
             renderList();
         };
@@ -265,7 +280,7 @@
         const url = document.getElementById("urlInput").value.trim();
         if (!url) return;
 
-        Adjust.trackEvent({ eventToken: 'swbxy4' });
+        trackAdjustEvent('swbxy4');
 
         const data = loadData();
         data.push({
@@ -280,7 +295,6 @@
 
     renderList();
 
-    // PWA Service Worker
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js');
     }
