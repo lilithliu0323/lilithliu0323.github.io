@@ -24,21 +24,18 @@
         })(window, document, 'script', 'https://cdn.adjust.com/adjust-latest.min.js');
 
         Adjust.init({
-            appToken: 'xwgmhbq5otfk',
+            appToken: 'hm52erbnr8cg',
             environment: 'sandbox'
         });
 
         function trackAdjustEvent(token) {
             if (window.Adjust && Adjust.trackEvent) {
                 Adjust.trackEvent({ eventToken: token });
-            } else {
-                console.warn('Adjust SDK not ready');
             }
         }
     </script>
 
     <style>
-        /* ===== 修复后的全局布局 ===== */
         html, body {
             margin: 0;
             padding: 0;
@@ -72,7 +69,6 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 16px;
-            flex-wrap: wrap;
         }
 
         .company-logo img {
@@ -124,7 +120,7 @@
             font-size: 15px;
             border-radius: 6px;
             border: 1px solid #ccc;
-            box-sizing: border-box; /* ✅ 修复溢出 */
+            box-sizing: border-box;
         }
 
         .add-btn {
@@ -190,18 +186,9 @@
 
     <div class="header">
         <div class="company-logo">
-            <img src="logo.png" alt="Company Logo">
+            <img src="logo.png">
         </div>
         <h1>深度链接测试</h1>
-    </div>
-
-    <div class="notice">
-        <div class="notice-title">测试注意事项：</div>
-        <div class="notice-item"><span class="dot"></span><span>请在移动设备浏览器中打开此网页</span></div>
-        <div class="notice-item"><span class="dot"></span><span>如测试延迟深度链接，请先：</span></div>
-        <div class="notice-item" style="margin-left:18px;"><span class="dot-hollow"></span><span>卸载 App</span></div>
-        <div class="notice-item" style="margin-left:18px;"><span class="dot-hollow"></span><span>测试控制台清除安装记录</span></div>
-        <div class="notice-item" style="margin-left:18px;"><span class="dot-hollow"></span><span>点击链接安装 App</span></div>
     </div>
 
     <input id="urlInput" type="text" placeholder="请输入测试链接">
@@ -256,15 +243,16 @@
 
         linkText.onclick = () => {
             item.lastClick = formatTime(new Date());
-            trackAdjustEvent('swbxy4');
-            saveData(loadData());
+            trackAdjustEvent('sxyuqi');
+            saveData(loadData().map(i => i.id === item.id ? item : i));
             updateTime();
             window.open(item.url, "_blank");
         };
 
         deleteBtn.onclick = () => {
-            trackAdjustEvent('56lhs5');
-            saveData(loadData().filter(i => i !== item));
+            trackAdjustEvent('8tkoy6');
+            const newData = loadData().filter(i => i.id !== item.id);
+            saveData(newData);
             renderList();
         };
 
@@ -280,10 +268,11 @@
         const url = document.getElementById("urlInput").value.trim();
         if (!url) return;
 
-        trackAdjustEvent('swbxy4');
+        trackAdjustEvent('3040yt');
 
         const data = loadData();
         data.push({
+            id: Date.now(),          // ✅ 唯一标识
             url,
             created: formatTime(new Date()),
             lastClick: ''
