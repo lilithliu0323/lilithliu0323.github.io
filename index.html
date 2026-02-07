@@ -156,9 +156,10 @@
             color: white;
             border: none;
             border-radius: 4px;
-            padding: 4px 8px;
+            padding: 8px 12px;
             font-size: 12px;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .time-info {
@@ -228,8 +229,10 @@
         linkText.innerText = item.url;
 
         const deleteBtn = document.createElement("button");
+        deleteBtn.type = "button";
         deleteBtn.className = "delete-btn";
         deleteBtn.innerText = "删除";
+        deleteBtn.dataset.itemId = item.id;
 
         const timeInfo = document.createElement("div");
         timeInfo.className = "time-info";
@@ -245,13 +248,6 @@
             saveData(loadData().map(i => i.id === item.id ? item : i));
             updateTime();
             window.open(item.url, "_blank");
-        };
-
-        deleteBtn.onclick = () => {
-            trackAdjustEvent('8tkoy6');
-            const newData = loadData().filter(i => i.id !== item.id);
-            saveData(newData);
-            renderList();
         };
 
         updateTime();
@@ -281,6 +277,20 @@
     }
 
     renderList();
+
+    // 使用事件委托处理删除按钮，避免动态元素点击失效
+    document.getElementById("linkList").addEventListener("click", function(e) {
+        const deleteBtn = e.target.closest(".delete-btn");
+        if (deleteBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            const itemId = parseInt(deleteBtn.dataset.itemId, 10);
+            trackAdjustEvent('8tkoy6');
+            const newData = loadData().filter(i => i.id !== itemId);
+            saveData(newData);
+            renderList();
+        }
+    });
 
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js');
