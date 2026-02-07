@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <title>深度链接测试</title>
@@ -11,7 +12,7 @@
 
     <!-- Adjust Web SDK -->
     <script type="application/javascript">
-!function(e,t,r,a,n,o,l,i,s,c,d,h,u,f,m){var p=l+"_q",g=l+"_c";e[l]=e[l]||{},e[p]=e[p]||[],e[g]=e[g]||[];for(let t=0;t<i.length;t++)h(e[l],e[p],i[t]);for(let t=0;t<s.length;t++)u(e[l],e[p],s[t]);for(let t=0;t<c.length;t++){const r=c[t][0],a=c[t][1];let n;e[l][r]=function(...t){return n=this,e[g].push((function(){n[d]=new e[l][r](...t)})),n};for(let t=0;t<a.length;t++){const o=a[t];e[l][r].prototype[o]=function(...t){e[g].push((function(){n[d][o](...t)}))}}}f=t.createElement(r),m=t.getElementsByTagName(r)[0],f.async=!0,f.src=a,f.onload=function(){for(var t=0;t<e[g].length;t++)e[g][t]();e[g]=[];for(t=0;t<e[p].length;t++)if(e[p][t][1][0]&&e[p][t][1][0][d])e[l][e[p][t][0]](e[p][t][1][0][d]);else{const r=e[p][t][2];r?e[l][e[p][t][0]].apply(e[l],e[p][t][1]).then((e=>r.resolve(e))):e[l][e[p][t][0]].apply(e[l],e[p][t][1])}e[p]=[]},m.parentNode.insertBefore(f,m)}(window,document,"script","https://cdn.adjust.com/adjust-latest.min.js",0,0,"Adjust",["initSdk","getAttribution","getWebUUID","setReferrer","trackEvent","addGlobalCallbackParameters","addGlobalPartnerParameters","removeGlobalCallbackParameter","removeGlobalPartnerParameter","clearGlobalCallbackParameters","clearGlobalPartnerParameters","switchToOfflineMode","switchBackToOnlineMode","stop","restart","gdprForgetMe","disableThirdPartySharing","trackThirdPartySharing","initSmartBanner","showSmartBanner","hideSmartBanner"],["waitForAttribution","waitForWebUUID"],[["ThirdPartySharing",["addGranularOption","addPartnerSharingSetting"]]],"__realObj",(function(e,t,r){e[r]=function(){t.push([r,arguments])}}),(function(e,t,r){e[r]=function(){const e={};return e.promise=new Promise(((t,r)=>{e.resolve=t,e.reject=r})),t.push([r,arguments,e]),e.promise}}));
+        !function (e, t, r, a, n, o, l, i, s, c, d, h, u, f, m) { var p = l + "_q", g = l + "_c"; e[l] = e[l] || {}, e[p] = e[p] || [], e[g] = e[g] || []; for (let t = 0; t < i.length; t++)h(e[l], e[p], i[t]); for (let t = 0; t < s.length; t++)u(e[l], e[p], s[t]); for (let t = 0; t < c.length; t++) { const r = c[t][0], a = c[t][1]; let n; e[l][r] = function (...t) { return n = this, e[g].push((function () { n[d] = new e[l][r](...t) })), n }; for (let t = 0; t < a.length; t++) { const o = a[t]; e[l][r].prototype[o] = function (...t) { e[g].push((function () { n[d][o](...t) })) } } } f = t.createElement(r), m = t.getElementsByTagName(r)[0], f.async = !0, f.src = a, f.onload = function () { for (var t = 0; t < e[g].length; t++)e[g][t](); e[g] = []; for (t = 0; t < e[p].length; t++)if (e[p][t][1][0] && e[p][t][1][0][d]) e[l][e[p][t][0]](e[p][t][1][0][d]); else { const r = e[p][t][2]; r ? e[l][e[p][t][0]].apply(e[l], e[p][t][1]).then((e => r.resolve(e))) : e[l][e[p][t][0]].apply(e[l], e[p][t][1]) } e[p] = [] }, m.parentNode.insertBefore(f, m) }(window, document, "script", "https://cdn.adjust.com/adjust-latest.min.js", 0, 0, "Adjust", ["initSdk", "getAttribution", "getWebUUID", "setReferrer", "trackEvent", "addGlobalCallbackParameters", "addGlobalPartnerParameters", "removeGlobalCallbackParameter", "removeGlobalPartnerParameter", "clearGlobalCallbackParameters", "clearGlobalPartnerParameters", "switchToOfflineMode", "switchBackToOnlineMode", "stop", "restart", "gdprForgetMe", "disableThirdPartySharing", "trackThirdPartySharing", "initSmartBanner", "showSmartBanner", "hideSmartBanner"], ["waitForAttribution", "waitForWebUUID"], [["ThirdPartySharing", ["addGranularOption", "addPartnerSharingSetting"]]], "__realObj", (function (e, t, r) { e[r] = function () { t.push([r, arguments]) } }), (function (e, t, r) { e[r] = function () { const e = {}; return e.promise = new Promise(((t, r) => { e.resolve = t, e.reject = r })), t.push([r, arguments, e]), e.promise } }));
         Adjust.initSdk({
             appToken: 'hm52erbnr8cg',
             environment: 'sandbox',
@@ -24,9 +25,28 @@
             }
         }
     </script>
-
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1604882947374020');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1604882947374020&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
     <style>
-        html, body {
+        html,
+        body {
             margin: 0;
             padding: 0;
             min-height: 100vh;
@@ -48,7 +68,7 @@
             width: 100%;
             max-width: 520px;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
@@ -92,7 +112,8 @@
             margin-bottom: 6px;
         }
 
-        .dot, .dot-hollow {
+        .dot,
+        .dot-hollow {
             width: 8px;
             height: 8px;
             border-radius: 50%;
@@ -101,8 +122,13 @@
             box-sizing: border-box;
         }
 
-        .dot { background: #667eea; }
-        .dot-hollow { border: 2px solid #667eea; }
+        .dot {
+            background: #667eea;
+        }
+
+        .dot-hollow {
+            border: 2px solid #667eea;
+        }
 
         input {
             width: 100%;
@@ -169,133 +195,138 @@
             color: #666;
         }
     </style>
+
 </head>
 
 <body>
-<div class="page">
-<div class="container">
+    <div class="page">
+        <div class="container">
 
-    <div class="header">
-        <div class="company-logo">
-            <img src="logo.png">
+            <div class="header">
+                <div class="company-logo">
+                    <img src="logo.png">
+                </div>
+                <h1>深度链接测试</h1>
+            </div>
+
+            <div class="notice">
+                <div class="notice-title">测试注意事项：</div>
+                <div class="notice-item"><span class="dot"></span><span>请在移动设备浏览器中打开此网页</span></div>
+                <div class="notice-item"><span class="dot"></span><span>如测试延迟深度链接，请先：</span></div>
+                <div class="notice-item" style="margin-left:18px;"><span class="dot-hollow"></span><span>卸载 App</span>
+                </div>
+                <div class="notice-item" style="margin-left:18px;"><span
+                        class="dot-hollow"></span><span>测试控制台清除安装记录</span></div>
+                <div class="notice-item" style="margin-left:18px;"><span class="dot-hollow"></span><span>点击链接安装
+                        App</span></div>
+            </div>
+
+            <input id="urlInput" type="text" placeholder="请输入测试链接">
+            <button class="add-btn" onclick="addLink()">添加到列表</button>
+
+            <ul id="linkList"></ul>
         </div>
-        <h1>深度链接测试</h1>
-    </div>
-    
-    <div class="notice">
-        <div class="notice-title">测试注意事项：</div>
-        <div class="notice-item"><span class="dot"></span><span>请在移动设备浏览器中打开此网页</span></div>
-        <div class="notice-item"><span class="dot"></span><span>如测试延迟深度链接，请先：</span></div>
-        <div class="notice-item" style="margin-left:18px;"><span class="dot-hollow"></span><span>卸载 App</span></div>
-        <div class="notice-item" style="margin-left:18px;"><span class="dot-hollow"></span><span>测试控制台清除安装记录</span></div>
-        <div class="notice-item" style="margin-left:18px;"><span class="dot-hollow"></span><span>点击链接安装 App</span></div>
     </div>
 
-    <input id="urlInput" type="text" placeholder="请输入测试链接">
-    <button class="add-btn" onclick="addLink()">添加到列表</button>
+    <script>
+        const STORAGE_KEY = 'deep_link_records';
 
-    <ul id="linkList"></ul>
-</div>
-</div>
-
-<script>
-    const STORAGE_KEY = 'deep_link_records';
-
-    function formatTime(date) {
-        return date.toLocaleString();
-    }
-
-    function saveData(data) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    }
-
-    function loadData() {
-        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    }
-
-    function renderList() {
-        const list = document.getElementById("linkList");
-        list.innerHTML = '';
-        loadData().forEach(createItem);
-    }
-
-    function createItem(item) {
-        const li = document.createElement("li");
-
-        const linkRow = document.createElement("div");
-        linkRow.className = "link-row";
-
-        const linkText = document.createElement("span");
-        linkText.className = "link-text";
-        linkText.innerText = item.url;
-
-        const deleteBtn = document.createElement("button");
-        deleteBtn.type = "button";
-        deleteBtn.className = "delete-btn";
-        deleteBtn.innerText = "删除";
-        deleteBtn.dataset.itemId = item.id;
-
-        const timeInfo = document.createElement("div");
-        timeInfo.className = "time-info";
-
-        function updateTime() {
-            timeInfo.innerText =
-                `创建时间：${item.created} ｜ 最后点击：${item.lastClick || '未点击'}`;
+        function formatTime(date) {
+            return date.toLocaleString();
         }
 
-        linkText.onclick = () => {
-            item.lastClick = formatTime(new Date());
-            trackAdjustEvent('sxyuqi');
-            saveData(loadData().map(i => i.id === item.id ? item : i));
+        function saveData(data) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+
+        function loadData() {
+            return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        }
+
+        function renderList() {
+            const list = document.getElementById("linkList");
+            list.innerHTML = '';
+            loadData().forEach(createItem);
+        }
+
+        function createItem(item) {
+            const li = document.createElement("li");
+
+            const linkRow = document.createElement("div");
+            linkRow.className = "link-row";
+
+            const linkText = document.createElement("span");
+            linkText.className = "link-text";
+            linkText.innerText = item.url;
+
+            const deleteBtn = document.createElement("button");
+            deleteBtn.type = "button";
+            deleteBtn.className = "delete-btn";
+            deleteBtn.innerText = "删除";
+            deleteBtn.dataset.itemId = item.id;
+
+            const timeInfo = document.createElement("div");
+            timeInfo.className = "time-info";
+
+            function updateTime() {
+                timeInfo.innerText =
+                    `创建时间：${item.created} ｜ 最后点击：${item.lastClick || '未点击'}`;
+            }
+
+            linkText.onclick = () => {
+                item.lastClick = formatTime(new Date());
+                trackAdjustEvent('sxyuqi');
+                saveData(loadData().map(i => i.id === item.id ? item : i));
+                updateTime();
+                window.open(item.url, "_blank");
+            };
+
             updateTime();
-            window.open(item.url, "_blank");
-        };
-
-        updateTime();
-        linkRow.appendChild(linkText);
-        linkRow.appendChild(deleteBtn);
-        li.appendChild(linkRow);
-        li.appendChild(timeInfo);
-        document.getElementById("linkList").appendChild(li);
-    }
-
-    function addLink() {
-        const url = document.getElementById("urlInput").value.trim();
-        if (!url) return;
-
-        trackAdjustEvent('3040yt');
-
-        const data = loadData();
-        data.push({
-            id: Date.now(),          // ✅ 唯一标识
-            url,
-            created: formatTime(new Date()),
-            lastClick: ''
-        });
-        saveData(data);
-        renderList();
-        document.getElementById("urlInput").value = '';
-    }
-
-    renderList();
-
-    // 使用事件委托处理删除按钮，避免动态元素点击失效
-    document.getElementById("linkList").addEventListener("click", function(e) {
-        const deleteBtn = e.target.closest(".delete-btn");
-        if (deleteBtn) {
-            e.preventDefault();
-            e.stopPropagation();
-            const itemId = parseInt(deleteBtn.dataset.itemId, 10);
-            trackAdjustEvent('8tkoy6');
-            const newData = loadData().filter(i => i.id !== itemId);
-            saveData(newData);
-            renderList();
+            linkRow.appendChild(linkText);
+            linkRow.appendChild(deleteBtn);
+            li.appendChild(linkRow);
+            li.appendChild(timeInfo);
+            document.getElementById("linkList").appendChild(li);
         }
-    });
 
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js');
-    }
-</script>
+        function addLink() {
+            const url = document.getElementById("urlInput").value.trim();
+            if (!url) return;
+
+            trackAdjustEvent('3040yt');
+
+            const data = loadData();
+            data.push({
+                id: Date.now(),          // ✅ 唯一标识
+                url,
+                created: formatTime(new Date()),
+                lastClick: ''
+            });
+            saveData(data);
+            renderList();
+            document.getElementById("urlInput").value = '';
+        }
+
+        renderList();
+
+        // 使用事件委托处理删除按钮，避免动态元素点击失效
+        document.getElementById("linkList").addEventListener("click", function (e) {
+            const deleteBtn = e.target.closest(".delete-btn");
+            if (deleteBtn) {
+                e.preventDefault();
+                e.stopPropagation();
+                const itemId = parseInt(deleteBtn.dataset.itemId, 10);
+                trackAdjustEvent('8tkoy6');
+                const newData = loadData().filter(i => i.id !== itemId);
+                saveData(newData);
+                renderList();
+            }
+        });
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js');
+        }
+    </script>
 </body>
+
 </html>
